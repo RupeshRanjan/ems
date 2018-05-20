@@ -49,16 +49,24 @@ class FrontController extends Controller
 
     public function authenticate(Request $request)
     {
-    	$credentials = ['email' => $request->email,'password' => $request->password];
-        if(Auth::attempt($credentials)){
-            $this->jsondata     = [];
-            $this->message      = 'logged in';
-            $this->status       = true;
-            $this->modal        = false;
-            $this->redirect     = url('admin/dashboard');
-    	}else{
-    		
-    	}
+        $validation = new Validations($request);
+        $validator = $validation->login();
+
+        if($validator->fails()){
+            $this->validation->error();
+        }else{
+
+        	$credentials = ['email' => $request->email,'password' => $request->password];
+            if(Auth::attempt($credentials)){
+                $this->jsondata     = [];
+                $this->message      = 'logged in';
+                $this->status       = true;
+                $this->modal        = false;
+                $this->redirect     = url('admin/dashboard');
+        	}else{
+        		
+        	}
+        }
         return $this->populateresponse();
     }
 }

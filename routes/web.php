@@ -18,7 +18,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'],function(){
 	Route::get('/','FrontController@login');
 	Route::get('login','FrontController@login');
 	Route::post('authenticate','FrontController@authenticate');
-		Route::get('employee','Employee@addView');
+	Route::get('employee','Employee@addView');
 	Route::group(['middleware' => 'AdminAuth'],function(){
 		Route::get('dashboard','AdminController@dashboard');
 
