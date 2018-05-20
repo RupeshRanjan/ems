@@ -73,7 +73,7 @@ class Users extends Model
         return (bool)$isUpdated;
     }
 
-    public static function list($fetch='array',$user_id,$where='',$order='id-desc'){
+    public static function list($fetch='array',$user_id=NULL,$where='',$order='id-desc'){
                 
         $table_user = self::select(['*'])->where('status','!=','trashed');
 
@@ -83,7 +83,7 @@ class Users extends Model
         
 
         if(!empty($user_id)){
-            $table_user->where(['id' => $user_id]);
+            $table_user->where(['id_user' => $user_id]);
         }
 
         $userlist['userCount'] = !empty($table_user->count())?$table_user->count():0;

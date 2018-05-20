@@ -23,7 +23,7 @@ class Employee
 			'date_of_birth' 	=> ['required','string'],
 			'gender' 			=> ['required','string'],
 			'phone_code' 		=> ['required','string'],
-			'mobile_number' 	=> ['required','numberic'],
+			'mobile_number' 	=> ['required','numeric'],
 			'address' 			=> ['required','string','max:500'],
 			'marital_status' 	=> ['required','string'],
 			'date_of_joining' 	=> ['required','string'],

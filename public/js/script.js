@@ -113,6 +113,67 @@ $(document).on('click','[data-request="ajax-submit"]',function(){
     }); 
 });
 
+$(document).on('click','[data-request="ajax-confirm"]',function(){
+    $('.alert').remove(); $(".has-error").removeClass('has-error');$('.error-message').remove();
+
+    var $this       = $(this);
+    var $url        = $this.data('url');
+    var $ask        = $this.data('ask');
+    var $askImage  = $this.data('ask_image');
+
+    swal({
+        html: $ask,
+        showLoaderOnConfirm: true, 
+        showCancelButton: true, 
+        showCloseButton: true, 
+        allowEscapeKey: false, 
+        allowOutsideClick:false, 
+        imageUrl :  $askImage,
+        imageClass: 'ask-image-popup',        
+        confirmButtonText: "YES, SURE", 
+        cancelButtonText: 'NOT NOW', 
+        confirmButtonColor: '#0FA1A8', 
+        cancelButtonColor: '#CFCFCF',
+        preConfirm: function (res) {
+            return new Promise(function (resolve, reject) {
+                if (res === true) {
+                    $.ajax({
+                        method: "POST",
+                        url: $url,
+                    })
+                    .done(function($response) {
+                        if($response.status == true){
+                            if(typeof LaravelDataTables !== 'undefined'){
+                                LaravelDataTables["dataTableBuilder"].draw();
+                            }
+
+                            if($response.message){
+                                // $('.content').prepend($response.message);
+                                
+                                if($('.alert').length > 0){
+                                    $('html, body').animate({
+                                        scrollTop: ($('.alert').offset().top-100)
+                                    }, 200);
+                                }
+                            }
+
+                            if($response.redirect != true){
+                               window.location.href = $response.redirect;
+                            }else if($response.redirect === true){
+                                location.reload();
+                            }else if($($response.redirect).length > 0){
+                                $($response.redirect).remove();
+                            }
+
+                            resolve();              
+                        }
+                    });
+                }
+            })
+        }
+    }).then(function(isConfirm){},function (dismiss){}).catch(swal.noop);
+});
+
 var dynamicDatepicker = function($className, $maxDate=true,$minDate=true){
     $($className).datepicker({
         showOn: "button",

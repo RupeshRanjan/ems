@@ -51,44 +51,57 @@ class EmployeeController extends Controller
         $userList = \Models\Users::list('array','','','id_user-desc');
         $userList = $userList['userlist'];
         $data['view'] = 'admin.backend.employee.list';
-
         if ($request->ajax()) {
             return DataTables::of($userList)
 
             ->editColumn('action',function($userList){
                 $html    = '<div class="edit_details_box">';
-                $html   .= '<a href="'.url('admin/client/'.___encrypt($userList['id_user']).'').'"
-                            ">View</a>';
+                $html   .= '<a href="'.url('admin/employee/'.___encrypt($userList['id_user']).'').'"
+                            "> <i class="fa fa-fw fa-eye"></i> | </a>';
                
                 if($userList['status'] == 'active'){
                     $html   .= '<a href="javascript:void(0);" 
-                        data-url="'.url(sprintf('admin/client/status/?id=%s&status=inactive',$userList['id_user'])).'" 
+                        data-url="'.url(sprintf('admin/employee/status/?id=%s&status=inactive',$userList['id_user'])).'" 
                         data-request="ajax-confirm"
-                        data-ask_image="'.url('/images/inactive.png').'"
-                        data-ask="Would you like to change '.$userList['name'].' status from active to inactive?" >Active</a>';
+                        data-ask_image="'.url('/images/inactive-user.png').'"
+                        data-ask="Would you like to change '.$userList['name'].' status from active to inactive?" ><i class="fa fa-fw fa-ban"></i></a>';
                 }elseif($userList['status'] == 'inactive'){
                     $html   .= '<a href="javascript:void(0);" 
-                        data-url="'.url(sprintf('admin/client/status/?id=%s&status=active',$userList['id_user'])).'" 
+                        data-url="'.url(sprintf('admin/employee/status/?id=%s&status=active',$userList['id_user'])).'" 
                         data-request="ajax-confirm"
-                        data-ask_image="'.url('/images/active.png').'"
-                        data-ask="Would you like to change '.$userList['name'].' status from inactive to active?" >Inactive</a>';
+                        data-ask_image="'.url('/images/active-user.png').'"
+                        data-ask="Would you like to change '.$userList['name'].' status from inactive to active?" ><i class="fa fa-fw fa-check"></i></a>';
+                }elseif($userList['status'] == 'pending'){
+                    $html   .= '<a href="javascript:void(0);" 
+                        data-url="'.url(sprintf('admin/employee/status/?id=%s&status=active',$userList['id_user'])).'" 
+                        data-request="ajax-confirm"
+                        data-ask_image="'.url('/images/active-user.png').'"
+                        data-ask="Would you like to change '.$userList['name'].' status from pending to active?" ><i class="fa fa-fw fa-check"></i></a>';
                 }
-                    $html   .= '</div>';
+                $html   .= '<a href="javascript:void(0);" 
+                        data-url="'.url(sprintf('admin/employee/status/?id=%s&status=trashed',$userList['id_user'])).'" 
+                        data-request="ajax-confirm"
+                        data-ask_image="'.url('/images/trash-user.png').'"
+                        data-ask="Would you like to delete '.$userList['name'].' ?" > | <i class="fa fa-fw fa-trash-o"></i></a>';
+
+                $html   .= '</div>';
                                 
                 return $html;
+            })
+            ->editColumn('status',function($userList){
+                return ucfirst($userList['status']);
             })
             ->rawColumns(['action'])
             ->make(true);
         }
         $data['html'] = $builder
-            ->addColumn(['data' => 'id', 'name' => 'id','title' => 'Cand-ID','orderable' => false])
+            ->parameters([
+                "dom" => "<'row' <'col-md-6 col-sm-12 col-xs-4'l><'col-md-6 col-sm-12 col-xs-4'f>><'row filter'><'row white_box_wrapper database_table table-responsive'rt><'row' <'col-md-6'i><'col-md-6'p>>",
+            ])
+            ->addColumn(['data' => 'employee_id', 'name' => 'employee_id','title' => 'Employee ID','orderable' => false])
             ->addColumn(['data' => 'name',     'name' => 'name',    'title' => 'Name','orderable' => false])
             ->addColumn(['data' => 'email', 'name' => 'email', 'title' => 'Email','orderable' => false])
             ->addColumn(['data' => 'mobile_number','name' => 'mobile_number', 'title' => 'Mobile Number','orderable' => false])
-            ->addColumn(['data' => 'location','name' => 'location', 'title' => 'Location','orderable' => false])
-            ->addColumn(['data' => 'registration_device','name' => 'registration_device','title' => 'App','orderable' => false])
-            ->addColumn(['data' => 'last_login','name' => 'last_login','title' => 'Last Access','orderable' => false])
-            ->addColumn(['data' => 'is_modified','name' => 'is_modified','title' => 'Modified','orderable' => false])
             ->addColumn(['data' => 'status','name' => 'status','title' => 'Status','orderable' => false])
             ->addAction([
                 'title' => '',
@@ -141,6 +154,7 @@ class EmployeeController extends Controller
                 'email'             => $request->email,
                 'password'          => bcrypt($request->password),
                 'type'              => 'employee',
+                'employee_id'       => $request->employee_id,
                 'phone_code'        => $request->phone_code,
                 'mobile_number'     => $request->mobile_number,
                 'date_of_birth'     => date('Y-m-d',strtotime($request->date_of_birth)),
@@ -175,7 +189,13 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['view'] = 'admin.backend.employee.view';
+        $id = ___decrypt($id);
+        $user = _arefy(\Models\Users::list('single',$id,'',''));
+        $user['signature']          = asset(sprintf('uploads/signature/%s',$user['signature']));
+        $user['profile_picture']    = asset(sprintf('uploads/profile/%s',$user['profile_picture']));
+        $data['profile'] = $user;
+        return view('admin.backend.index')->with($data);
     }
 
     /**
@@ -219,7 +239,7 @@ class EmployeeController extends Controller
         if($validator->fails()){
             $this->message = $validator->errors();
         }else{
-            $userData                = ['status' => $request->status, 'updated' => date('Y-m-d H:i:s')];
+            $userData                = ['status' => $request->status, 'updated_at' => date('Y-m-d H:i:s')];
             $isUpdated               = Users::change($request->id,$userData);
 
             if($isUpdated){

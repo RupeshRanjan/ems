@@ -20,7 +20,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'],function(){
 	Route::post('authenticate','FrontController@authenticate');
 
 	Route::resource('employee','EmployeeController');
-
+	Route::post('employee/status','EmployeeController@changeStatus');
 	Route::group(['middleware' => 'AdminAuth'],function(){
 		Route::get('dashboard','AdminController@dashboard');
 
