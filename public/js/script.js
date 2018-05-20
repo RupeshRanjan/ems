@@ -26,7 +26,7 @@ $(document).on('click','[data-request="ajax-submit"]',function(){
             }
 
             if ($response.status === true) {
-                if($response.redirect){
+                if($response.redirect){ 
                     if($response.modal){
                         $($target).trigger('reset');
                         $($modal).attr('data-success',$response.redirect);
