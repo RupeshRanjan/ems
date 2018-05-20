@@ -12,4 +12,9 @@ class FrontController extends Controller
     	$data['view'] = 'admin.front.login';
     	return view('admin.front.index')->with($data);
     }
+
+    public function authenticate(Request $request)
+    {
+    	dd($request->all());
+    }
 }

@@ -5,9 +5,11 @@
 	License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="">
 
 <head>
+
+    <meta name="_token" content="{{ csrf_token() }}">
     <title>Core Login Form Flat Responsive Widget Template :: w3layouts</title>
     <!-- Meta-Tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,19 +38,17 @@
 <body>
     @yield('content')
     <!--//copyright-->
-    <script src="{{ asset('js/jquery-2.2.3.min.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- script for show password -->
-    <script>
-        $(".toggle-password").click(function () {
-
-            $(this).toggleClass("fa-eye fa-eye-slash");
-            var input = $($(this).attr("toggle"));
-            if (input.attr("type") == "password") {
-                input.attr("type", "text");
-            } else {
-                input.attr("type", "password");
-            }
-        });
+    <script type="text/javascript" src="{{asset('js/script.js')}}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },isLocal: false
+            });
+        });            
     </script>
     <!-- /script for show password -->
 
