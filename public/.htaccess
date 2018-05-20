@@ -1,3 +1,7 @@
+# FOR NOT FOUND IMAGES SETTING UP DEFAULT IMAGE
+RewriteEngine on
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f
+RewriteRule \.(gif|jpe?g|png|bmp) images/default-image.jpg [NC,L]
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews

@@ -192,8 +192,8 @@ class EmployeeController extends Controller
         $data['view'] = 'admin.backend.employee.view';
         $id = ___decrypt($id);
         $user = _arefy(\Models\Users::list('single',$id,'',''));
-        $user['signature']          = asset(sprintf('uploads/signature/%s',$user['signature']));
-        $user['profile_picture']    = asset(sprintf('uploads/profile/%s',$user['profile_picture']));
+        $user['signature']          = !empty($user['signature'])?asset(sprintf('uploads/signature/%s',$user['signature'])):asset(sprintf('uploads/signature/%s',$user['signature']));
+        $user['profile_picture']    = !empty($user['signature'])?asset(sprintf('uploads/profile/%s',$user['profile_picture'])):asset(sprintf('uploads/profile/%s',$user['profile_picture']));
         $data['profile'] = $user;
         return view('admin.backend.index')->with($data);
     }

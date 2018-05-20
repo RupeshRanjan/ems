@@ -32,11 +32,11 @@
 							</li>
 						</ul>
 						@if($profile['status'] == 'inactive')
-							<a href="#" class="btn btn-primary btn-block"><b>Active</b></a>
+							<a href="javascript:void(0);" class="btn btn-primary btn-block" data-url="{{url(sprintf('admin/employee/status/?id=%s&status=active',$profile['id_user']))}}" data-request="ajax-confirm" data-ask_image=" {{ url('/images/active-user.png') }}"" data-ask="Would you like to change ' {{$profile['name']}}' status from inactive to active?" >{{ucfirst($profile['status'])}}</a>
 						@elseif($profile['status'] == 'pending')
-							<a href="#" class="btn btn-primary btn-block"><b>Active</b></a>
+							<a href="javascript:void(0);" class="btn btn-primary btn-block" data-url="{{url(sprintf('admin/employee/status/?id=%s&status=active',$profile['id_user']))}}" data-request="ajax-confirm" data-ask_image=" {{ url('/images/active-user.png') }}"" data-ask="Would you like to change ' {{$profile['name']}}' status from pending to inactive?" >{{ucfirst($profile['status'])}}</a>
 						@else
-							<a href="#" class="btn btn-danger btn-block"><b>Inactive</b></a>
+							<a href="javascript:void(0);" class="btn btn-primary btn-block" data-url="{{url(sprintf('admin/employee/status/?id=%s&status=inactive',$profile['id_user']))}}" data-request="ajax-confirm" data-ask_image=" {{ url('/images/inactive-user.png') }}"" data-ask="Would you like to change ' {{$profile['name']}}' status from active to inactive?" >{{ucfirst($profile['status'])}}</a>
 						@endif
 					</div>
 					<!-- /.card-body -->
@@ -89,7 +89,7 @@
 				<div class="card">
 					<div class="card-header p-2">
 						<ul class="nav nav-pills">
-							<li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a></li>
+							<li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Edit</a></li>
 						</ul>
 					</div><!-- /.card-header -->
 					<div class="card-body">
@@ -152,10 +152,10 @@
 									</div>
 								</div>
 								<div class="col-md-6">
+				                    <label>Mobile Number</label>
 									<div class="row">
 										<div class="col-md-3">
 											<div class="form-group">
-							                    <label>Phone Code</label>
 							                    <select name="phone_code" class="form-control">
 							                    	<option value="+91">+91</option>
 							                    </select>
@@ -163,7 +163,6 @@
 										</div>
 										<div class="col-md-9">
 											<div class="form-group">
-							                    <label>Mobile Number</label>
 							                    <input type="text" class="form-control" id="mobile_number" maxlength="{{PHONE_NUMBER_MAX_LENGTH}}" name="mobile_number" placeholder="Enter Mobile Number">
 											</div>
 										</div>
