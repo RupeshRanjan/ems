@@ -4,13 +4,11 @@ namespace Validations;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
-use App\Http\Controllers\AuthenticatesUsers;
 /**
 * 
 */
 class Perks
 {
-	use AuthenticatesUsers;
 	protected $data;
 	public function __construct($data){
 		$this->data = $data;
@@ -18,151 +16,7 @@ class Perks
 
 	private function validation($key){
 		$validation = [
-			'company_name' 				=> ['required','string','regex:/(^[A-Za-z0-9 .()]+$)+/','max:'.COMPANY_NAME_MAX_LENGTH],
-			'location'					=> ['required','string'],
-			'street'					=> ['required','string'],
-			'city'						=> ['required','string'],
-			'designation'				=> ['required','string'],
-			'country'					=> ['required','integer'],
-			'name'						=> ['required','string'],
-			'first_name'				=> ['required','string','regex:/^[a-zA-Z0-9 ]{2,30}$/','max:'.NAME_MAX_LENGTH],
-			'last_name'					=> ['required','string','regex:/^[a-zA-Z0-9 ]{2,30}$/','max:'.NAME_MAX_LENGTH],
-			'about_you'					=> ['nullable'],
-			'nationality'				=> ['required'],
-			'country_of_residence'		=> ['required'],
-			'phone_code'				=> ['required'],	
-			'phone_code_company'		=> ['nullable'],	
-			'mobile_number'				=> ['required','string','regex:/(^[0-9]+$)+/','max:'.PHONE_NUMBER_MAX_LENGTH,'min:'.PHONE_NUMBER_MIN_LENGTH],
-			'mobile_number_company'		=> ['nullable','string','regex:/(^[0-9]+$)+/','max:'.PHONE_NUMBER_MAX_LENGTH,'min:'.PHONE_NUMBER_MIN_LENGTH],
-			'email'						=> ['required','email'],
-			'message'					=> ['required','string'],
-			'username'					=> ['required','string'],
-			'old_password'				=> ['required'],
-			'password'					=> ['required', 'string', 'between:'.PASSWORD_MIN_LENGTH.','.PASSWORD_MAX_LENGTH ],
-			'confirm_password'			=> ['required','same:password'],
-			'user_id'					=> ['required'],
-			'action'					=> ['required'],
-			'g-recaptcha-response'		=> ['sometimes','required'],
-			'experience'				=> ['required','numeric','min:'.EXPERIENCE_MIN_LENGTH,'max:'.EXPERIENCE_MAX_LENGTH],
-			'otp'						=> ['required'],
-			
-			/*ADD BRANCH*/
-			'phone_code_branch'				=> ['nullable'],
-			'mobile_number_branch'			=> ['nullable','string','regex:/(^[0-9]+$)+/','max:'.PHONE_NUMBER_MAX_LENGTH,'min:'.PHONE_NUMBER_MIN_LENGTH],
-			'mobile_number_not_required' 	=> ['nullable','string','regex:/(^[0-9]+$)+/','max:'.PHONE_NUMBER_MAX_LENGTH,'min:'.PHONE_NUMBER_MIN_LENGTH],
-			'phone_code_not_required'		=> ['nullable'],
-			
-			/*CANDIDATE WORK EXPERIENCE*/
-			'work_experience'			=> ['required','integer','max:'.MAX_WORK_EXPERIENCE_LIMIT],
-			'jobtitle'					=> ['required','string','min:'.JOB_TITLE_MIN_LENGTH,'max:'.JOB_TITLE_MAX_LENGTH],
-			'experience_level'			=> ['required','string',Rule::in(array_keys(experience_level(true)))],
-			'company_name' 				=> ['required','string','min:'.COMPANY_NAME_MIN_LENGTH,'max:'.COMPANY_NAME_MAX_LENGTH],
-			'is_currently_working' 		=> ['required',Rule::in(['yes','no'])],
-			'joining_month' 			=> ['required','integer','min:1', "max:12"],
-			'joining_year' 				=> ['required','integer','min:'.MIN_JOINING_YEAR,'max:'.MAX_JOINING_YEAR],
-			'relieving_month' 			=> ['required_if:is_currently_working,'.DEFAULT_NO_VALUE],
-			'relieving_year' 			=> ['required_if:is_currently_working,'.DEFAULT_NO_VALUE],
-			'tags'						=> ['required','array'],
-			'function'					=> ['nullable'],		
-			'description' 				=> ['nullable','string','max:'.DESCRIPTION_MAX_LENGTH,'min:'.DESCRIPTION_MIN_LENGTH],
-			
-			/*CANDIDATE EDUCATION*/
-			'education_experience'		=> ['required','integer','max:'.MAX_EDUCATION_EXPERIENCE_LIMIT],
-			'degree_title'				=> ['required','string','min:'.EDUCATION_TITLE_MIN_LENGTH,'max:'.EDUCATION_TITLE_MAX_LENGTH],
-			'degree_level'				=> ['required','string'],
-			'grade_point'				=> ['nullable','numeric','min:'.GRADE_MIN_LENGTH,'max:'.GRADE_MAX_LENGTH],
-			'field_of_study'			=> ['required','string'],
-			'minor'						=> ['nullable','string','min:'.MINOR_MIN_LENGTH,'max:'.MINOR_MAX_LENGTH],
-			'school'					=> ['nullable','string','min:'.SCHOOL_NAME_MIN_LENGTH,'max:'.SCHOOL_NAME_MAX_LENGTH],
-			'degree_status'				=> ['required','string',Rule::in(['passed','appearing'])],
-			'education_start_year'		=> ['required','integer','min:'.MIN_START_EDUCATION_YEAR,'max:'.MAX_START_EDUCATION_YEAR],
-			'education_end_year'		=> ['required_if:degree_status,passed','nullable'],
-
-			/*CANDIDATE SKILLS*/
-			'skills'					=> ['required','array','min:2','max:6'],
-			'tags'						=> ['required','array','min:2','max:6'],
-
-			/*CERTIFICATES*/
-			'certificate'						=> ['required','integer','max:'.MAX_CERTIFICATE_LIMIT],
-			"certificate_name"					=> ['required', 'string'],
-			"certificate_authority"				=> ['nullable','string'],
-			"received_month"					=> ['nullable','integer', 'min:1', "max:12"],
-			"received_year"						=> ['nullable','integer','min:'.MIN_RECEIVED_YEAR,'max:'.MAX_RECEIVED_YEAR],
-			"valid_till_month"					=> ['nullable','integer', 'min:1', "max:12"],
-			"valid_till_year"					=> ['nullable','integer','min:'.MIN_VALID_TILL_YEAR,'max:'.MAX_VALID_TILL_YEAR],
-			
-			/*CANDIDATE LANUGUAGE*/
-			'language_name'						=> ['sometimes','nullable','string'],
-			'ilr_level'							=> ['nullable','integer'],
-			
-			/*CANDIDATE SOCIAL*/
-			'candidate_social'					=> ['nullable','array'],
-			'social_key'						=> ['required','string'],
-			'social_value'						=> ['required','string','max:'.MAX_SOCIAL_LENGTH,'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'],
-
-
-			/*DELETE*/
-			"id"								=> ['required','string'],
-
-			/*EYES SHARE*/
-			'candidate_entity'					=> ['required','string',Rule::in(sharableEntity(true))],
-			'share_status'						=> ['required','string',Rule::in(['public','private','protected'])],
-			
-			/*PERSONAL INFORMATION*/
-			
-			'dob_check'							=>['required'],
-			'date_of_birth'						=>['required_if:dob_check,yes'],
-			'gender'							=>['required'],
-			'country_work_from'					=>[],
-			'country_work_from_country'			=>['nullable'],
-			'country_work_from_eligibility'		=>['nullable',Rule::in(['current','previous'])],
-			'travel_willingness'				=>['required',Rule::in([DEFAULT_YES_VALUE,DEFAULT_NO_VALUE])],	
-			'travel_willingness_percentage'		=>['required_if:travel_willingness,'.DEFAULT_YES_VALUE],
-
-			/*CANDIDATE PREFERENCES*/
-			'countries_work_from'				=>['required','array','min:'.MIN_PREFERRED_COUNTRIES_LIMIT,'max:'.MAX_PREFERRED_COUNTRIES_LIMIT],
-			'desired_job_titles'				=>['required','array','min:'.MIN_DESIRED_JOB_TITLE_LIMIT,'max:'.MAX_DESIRED_JOB_TITLE_LIMIT],
-
-			/*COMPANY PROFILE*/
-			'company_industry' 					=> ['required'],
-			'industry' 							=> ['required'],
-			'industry_name' 					=> ['required'],
-			'industry_type'						=> ['required'],
-			'point_of_contact'					=> ['required'],
-			'interviewers'						=> ['nullable','array'],
-			'interviewer_name'					=> ['nullable'],
-			'website'  							=> ['nullable','string','regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'],
-			'fax_code'          				=> ['nullable','string'],	
-			'fax'          						=> ['nullable','string','regex:/(^[0-9]+$)+/','max:'.PHONE_NUMBER_MAX_LENGTH,'min:'.PHONE_NUMBER_MIN_LENGTH],
-			'location_street'					=> ['nullable','string'],
-			'billing_street'					=> ['nullable','string'],
-			'location_code'						=> ['nullable','string','regex:/(^[0-9]+$)+/','max:'.POSTAL_CODE_MAX_LENGTH,'min:'.POSTAL_CODE_MIN_LENGTH],
-			'billing_code'						=> ['nullable','string','regex:/(^[0-9]+$)+/','max:'.POSTAL_CODE_MAX_LENGTH,'min:'.POSTAL_CODE_MIN_LENGTH],
-			'location_state'					=> ['nullable','string'],
-			'billing_state'						=> ['nullable','string'],
-			'billing_city'						=> ['nullable','string'],
-			'location_city'						=> ['nullable','string'],
-			'billing_country'					=> ['nullable','string','integer'],
-			'location_country'					=> ['nullable','string','integer'],
-			'location_address'					=> ['nullable',Rule::in('same','different')],
-
-			/*************** C L I E N T ( C O M P A N Y ) **************************/
-			
-			/*COMPANY CREATE USER*/
-			'primary_branch'					=> ['required'],
-			'company_user_type'					=> ['required',Rule::in(['company_user','interviewer'])],
-			'company_status'					=> ['required',Rule::in(['active','inactive'])],
-			
-			/*BRANCH LIST*/
-			'search_by_branch_name'				=> ['nullable','string'],
-			'search_by_branch_industry'			=> ['nullable'],
-
-			/*USER LIST*/
-			'search_by_user_name'				=> ['nullable','string'],
-			'search_by_user_type'				=> ['nullable','string'],
-			'search_by_user_status'				=> ['nullable',Rule::in(['active','inactive','locked'])],
-			'search_by_user_branch'				=> ['nullable','string'],
-			'profile_picture'				    => ['nullable'],		
+			'password'	=> ['required'],
 
 		];
 		return $validation[$key];
@@ -170,53 +24,16 @@ class Perks
 
 	public function login(){
         $validator = \Validator::make($this->data->all(), [
-            $this->username() => 'required|string',
+            'email' => 'required|string',
             'password' => $this->validation('password'),
         ],[
-        	$this->username().'.required' 	=> trans('general.M0032'),
-        	$this->username().'.string' 	=> trans('general.M0033'),
+        	'email.required' 	=> trans('general.M0032'),
+        	'email.string' 	=> trans('general.M0033'),
 			'password.required'         	=> trans('general.M0019'),
 			'password.string'           	=> trans('general.M0020'),
 			'password.regex'            	=> trans('general.M0020'),
 			'password.between'              => trans('general.user_authentication_failed')
         ]);
-
-        $validator->after(function($validator){
-            $userdata = $this->findUser($this->data);
-            $loginLable = $this->getLoginLable($this->data);
-
-            $checkIp = \Models\LoginAttempt::checkIp($this->data->ip());
-            $remaining_attempt = 4 - $userdata['maxattempts'];
-            if (($loginLable == 'email' && !filter_var($this->data->{$this->username()}, FILTER_VALIDATE_EMAIL)) || ($loginLable == 'mobile' && (strlen($this->data->{$this->username()}) > PHONE_NUMBER_MAX_LENGTH || strlen($this->data->{$this->username()}) < PHONE_NUMBER_MIN_LENGTH))){
-				$validator->errors()->add($this->username(), trans('general.invalid_format_email_mobile',['attribute' => trans('general.email_mobile')]));
-            }else if(!$userdata){
-                
-                $validator->errors()->add('password', trans('general.user_authentication_failed'));
-            }elseif(!in_array($userdata->type,FRONT_END_USER_ROLE_TYPE)){
-            	$validator->errors()->add('password','Currently the system allows access to client admin and candidate only.');
-            }else if($userdata->status == 'locked'){
-                $validator->errors()->add('password', trans('general.account_locked'));
-            }else if($userdata->status == 'pending'){
-            	if($this->data->is('api/*')){
-            		$validator->errors()->add('resend_mail',trans('general.M0027'));
-            	}else{
-	            	$validator->errors()->add('password',sprintf(trans('general.inactive_resend_mail'),url(sprintf('resend-mail-verification?email=%s',base64_encode($userdata->email)) ) ));
-            	}
-	        }else if($loginLable == 'mobile' && $userdata->is_mobile_verified == 'no'){
-            	if($this->data->is('api/*')){
-            		$validator->errors()->add('verify_mobile',trans('general.webservice_mobile_not_verified'));
-            	}else{
-            		$validator->errors()->add('username',sprintf(trans('general.inactive_verify_mobile'),url(sprintf('resend-mobile-verification?mobile_number=%s',$userdata->mobile_number) ) ));
-            	}
-            }else if($userdata->status == 'inactive'){
-	            $validator->errors()->add('password' ,trans('general.M0029'));
-	        }elseif(!empty($checkIp->attempt) && $checkIp->attempt> 2){
-            	$requestData = $this->data->all();
-            	if(empty($requestData['g-recaptcha-response'])){
-            		$validator->errors()->add('g-recaptcha-response','g-recaptcha-response is required.');
-            	}
-            }
-        });
         
         return $validator;
     }

@@ -17,4 +17,6 @@
 	</div>
 	<!-- /.row -->
 </section>
+@section('requirejs')
 {!! $html->scripts()!!}
+@endsection
