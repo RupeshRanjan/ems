@@ -16,6 +16,7 @@ class Employee
 
 	private function validation($key){
 		$validation = [
+			'id'				=> ['required'],
 			'email'				=> ['required','email'],
 			'first_name' 		=> ['required','string'],
 			'last_name' 		=> ['required','string'],
@@ -31,8 +32,8 @@ class Employee
 		return $validation[$key];
 	}
 
-	public function createEmployee(){
-        $validator = \Validator::make($this->data->all(), [
+	public function createEmployee($action='add'){
+        $validations = [
             'first_name' 		=> $this->validation('first_name'),
             'last_name' 		=> $this->validation('last_name'),
             'employee_id' 		=> $this->validation('employee_id'),
@@ -45,8 +46,13 @@ class Employee
 			'marital_status'	=> $this->validation('marital_status'),
 			'email'				=> $this->validation('email'),
 			'date_of_joining'	=> $this->validation('date_of_joining'),            
-        ],[
-        ]);
+    	];
+
+    	if($action == 'edit'){
+    		$validations['id'] = $this->validation('id');
+    	}
+
+        $validator = \Validator::make($this->data->all(), $validations,[]);
         
         return $validator;		
 	}

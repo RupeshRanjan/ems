@@ -192,8 +192,8 @@ class EmployeeController extends Controller
         $data['view'] = 'admin.backend.employee.view';
         $id = ___decrypt($id);
         $user = _arefy(\Models\Users::list('single',$id,'',''));
-        $user['signature']          = !empty($user['signature'])?asset(sprintf('uploads/signature/%s',$user['signature'])):asset(sprintf('uploads/signature/%s',$user['signature']));
-        $user['profile_picture']    = !empty($user['signature'])?asset(sprintf('uploads/profile/%s',$user['profile_picture'])):asset(sprintf('uploads/profile/%s',$user['profile_picture']));
+        $user['signature']          = !empty($user['signature'])?asset(sprintf('uploads/signature/%s',$user['signature'])):asset('images/default-image.jpg');
+        $user['profile_picture']    = !empty($user['profile_picture'])?asset(sprintf('uploads/profile/%s',$user['profile_picture'])):asset('images/default-image.jpg');
         $data['profile'] = $user;
         return view('admin.backend.index')->with($data);
     }
@@ -218,7 +218,18 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->request->add(['id' => ___decrypt($id)]);
+        $validation = new Validations($request);
+        $validator  = $validation->createEmployee('edit');
+        if($validator->fails()){
+            $this->message = $validator->errors();
+        }else{
+            $this->status = true;
+            $this->modal = true;
+            $this->redirect = url(sprintf('admin/employee/%s',$id));
+        }
+
+        return $this->populateresponse();
     }
 
     /**

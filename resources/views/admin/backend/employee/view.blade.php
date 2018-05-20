@@ -95,174 +95,174 @@
 					<div class="card-body">
 						<div class="tab-content">
 							<div class="tab-pane active" id="settings">
-								<form class="form-horizontal">
-
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="first_name">First Name</label>
-										<input type="text" class="form-control" name="first_name" id="first_name" maxlength="{{NAME_MAX_LENGTH}}" placeholder="Enter First Name">
+								<form role="edit-employee" action="{{url(sprintf('admin/employee/%s',___encrypt($profile['id_user'])))}}" method="POST" class="form-horizontal">
+									<input type="text" class="hide" name="_method" value="PUT">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="first_name">First Name</label>
+												<input type="text" class="form-control" name="first_name" id="first_name" value="{{!empty($profile['first_name'])?$profile['first_name']:""}}" maxlength="{{NAME_MAX_LENGTH}}" placeholder="Enter First Name">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="last_name">Last Name</label>
+												<input type="text" class="form-control" name="last_name" id="last_name" value="{{!empty($profile['last_name'])?$profile['last_name']:""}}" maxlength="{{NAME_MAX_LENGTH}}" placeholder="Enter Last Name">
+											</div>
+										</div>
 									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="last_name">Last Name</label>
-										<input type="text" class="form-control" name="last_name" id="last_name" maxlength="{{NAME_MAX_LENGTH}}" placeholder="Enter Last Name">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+							                    <label>Email</label>
+		                                        <input type="email" class="form-control" name="email" value="{{!empty($profile['email'])?$profile['email']:""}}" placeholder="Enter Email">
+											</div>
+										</div>							
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="exampleInputEmail1">Date Of Birth</label>
+		                                        <div class="hashowCalender showCalendarWithInput">
+		                                            <input type="text" name="date_of_birth" class="form-control datepicker" readonly="readonly" name="date_of_birth" value="{{!empty($profile['date_of_birth'])?$profile['date_of_birth']:""}}" placeholder="Enter Date Of Birth">
+		                                        </div>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-					                    <label>Email</label>
-                                        <input type="email" class="form-control" name="email" value="" placeholder="Enter Email">
-									</div>
-								</div>							
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="exampleInputEmail1">Date Of Birth</label>
-                                        <div class="hashowCalender showCalendarWithInput">
-                                            <input type="text" name="date_of_birth" class="form-control datepicker" readonly="readonly" name="date_of_birth" value="" placeholder="Enter Date Of Birth">
-                                        </div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<label>Gender</label>
-									<div class="form-control radioGenderFormControl">
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group">
-								                    <div class="form-check">
-								                      	<input class="form-check-input" name="gender" id="gender_male" value="male" checked="checked" type="radio" >
-								                      	<label for="gender_male" class="form-check-label">Male</label>
-								                    </div>
+									<div class="row">
+										<div class="col-md-6">
+											<label>Gender</label>
+											<div class="form-control radioGenderFormControl">
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+										                    <div class="form-check">
+										                      	<input class="form-check-input" name="gender" id="gender_male" value="male" checked="checked" type="radio" >
+										                      	<label for="gender_male" class="form-check-label">Male</label>
+										                    </div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+										                    <div class="form-check">
+										                      	<input class="form-check-input" name="gender" id="gender_female" type="radio" value="female">
+										                      	<label for="gender_female" class="form-check-label">Female</label>
+										                    </div>
+														</div>
+													</div>
 												</div>
 											</div>
-											<div class="col-md-6">
-												<div class="form-group">
-								                    <div class="form-check">
-								                      	<input class="form-check-input" name="gender" id="gender_female" type="radio" value="female">
-								                      	<label for="gender_female" class="form-check-label">Female</label>
-								                    </div>
+										</div>
+										<div class="col-md-6">
+						                    <label>Mobile Number</label>
+											<div class="row">
+												<div class="col-md-3">
+													<div class="form-group">
+									                    <select name="phone_code" class="form-control">
+									                    	<option value="+91">+91</option>
+									                    </select>
+													</div>
+												</div>
+												<div class="col-md-9">
+													<div class="form-group">
+									                    <input type="text" class="form-control" id="mobile_number" maxlength="{{PHONE_NUMBER_MAX_LENGTH}}" name="mobile_number" value="{{!empty($profile['mobile_number'])?$profile['mobile_number']:""}}" placeholder="Enter Mobile Number">
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="col-md-6">
-				                    <label>Mobile Number</label>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="exampleInputEmail1">Current Address</label>
+												<textarea name="current_address"  class="form-control" placeholder="Current Address"> {{!empty($profile['current_address'])?$profile['current_address']:""}} </textarea>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="exampleInputEmail1">Permanent Address</label>
+												<textarea name="permanent_address"  class="form-control" placeholder="Permanent Address"> {{!empty($profile['permanent_address'])?$profile['permanent_address']:""}} </textarea>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<label>Marital Status</label>
+											<div class="form-control radioGenderFormControl">
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+										                    <div class="form-check">
+										                      	<input type="radio" class="form-check-input" id="marital_status_married" name="marital_status" value="married" >
+										                      	<label for="marital_status_married" class="form-check-label">Married</label>
+										                    </div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+										                    <div class="form-check">
+										                      	<input type="radio" class="form-check-input" id="marital_status_single" name="marital_status"  value="single" checked="checked">
+										                      	<label for="marital_status_single" class="form-check-label">Single</label>
+										                    </div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="exampleInputEmail1">Employee Id</label>
+												<input type="text" name="employee_id" class="form-control" id="exampleInputEmail1" placeholder="Enter Employee Id" value="{{!empty($profile['employee_id'])?$profile['employee_id']:""}}">
+											</div>
+										</div>								
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+							                    <label>Date Of Joining</label>
+		                                        <div class="hashowCalender showCalendarWithInput">
+		                                            <input type="text" class="form-control datepicker" readonly="readonly" name="date_of_joining" value="{{!empty($profile['date_of_joining'])?$profile['date_of_joining']:""}}" placeholder="Enter Date Of Joining">
+		                                        </div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+							                    <label>Date Of Joining</label>
+		                                        <input type="text" class="form-control"  name="designation" value="{{!empty($profile['designation'])?$profile['designation']:""}}" placeholder="Enter Designation">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">						
+											<div class="form-group">
+												<label for="exampleInputFile">Profile Image</label>
+												<div class="input-group">
+													<div class="custom-file">
+														<input type="file" name="profile_picture" class="custom-file-input" id="exampleInputFile">
+														<label class="custom-file-label" for="exampleInputFile">Choose file</label>
+													</div>
+													<div class="input-group-append">
+														<span class="input-group-text" id="">Upload</span>
+													</div>
+												</div>
+											</div>
+										</div>	
+										<div class="col-md-6">						
+											<div class="form-group">
+												<label for="exampleInputFile">Signature</label>
+												<div class="input-group">
+													<div class="custom-file">
+														<input type="file" name="signature" class="custom-file-input" id="exampleInputFile">
+														<label class="custom-file-label" for="exampleInputFile">Choose file</label>
+													</div>
+													<div class="input-group-append">
+														<span class="input-group-text" id="">Upload</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 									<div class="row">
 										<div class="col-md-3">
-											<div class="form-group">
-							                    <select name="phone_code" class="form-control">
-							                    	<option value="+91">+91</option>
-							                    </select>
-											</div>
-										</div>
-										<div class="col-md-9">
-											<div class="form-group">
-							                    <input type="text" class="form-control" id="mobile_number" maxlength="{{PHONE_NUMBER_MAX_LENGTH}}" name="mobile_number" placeholder="Enter Mobile Number">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="exampleInputEmail1">Current Address</label>
-										<textarea name="current_address"  class="form-control" placeholder="Current Address"></textarea>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="exampleInputEmail1">Permanent Address</label>
-										<textarea name="permanent_address"  class="form-control" placeholder="Permanent Address"></textarea>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<label>Marital Status</label>
-									<div class="form-control radioGenderFormControl">
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group">
-								                    <div class="form-check">
-								                      	<input type="radio" class="form-check-input" id="marital_status_married" name="marital_status" value="married" >
-								                      	<label for="marital_status_married" class="form-check-label">Married</label>
-								                    </div>
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group">
-								                    <div class="form-check">
-								                      	<input type="radio" class="form-check-input" id="marital_status_single" name="marital_status"  value="single" checked="checked">
-								                      	<label for="marital_status_single" class="form-check-label">Single</label>
-								                    </div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="exampleInputEmail1">Employee Id</label>
-										<input type="text" name="employee_id" class="form-control" id="exampleInputEmail1" placeholder="Enter Employee Id">
-									</div>
-								</div>								
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-					                    <label>Date Of Joining</label>
-                                        <div class="hashowCalender showCalendarWithInput">
-                                            <input type="text" class="form-control datepicker" readonly="readonly" name="date_of_joining" value="" placeholder="Enter Date Of Joining">
-                                        </div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-					                    <label>Date Of Joining</label>
-                                        <input type="text" class="form-control"  name="designation" value="" placeholder="Enter Designation">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">						
-									<div class="form-group">
-										<label for="exampleInputFile">Profile Image</label>
-										<div class="input-group">
-											<div class="custom-file">
-												<input type="file" name="profile_picture" class="custom-file-input" id="exampleInputFile">
-												<label class="custom-file-label" for="exampleInputFile">Choose file</label>
-											</div>
-											<div class="input-group-append">
-												<span class="input-group-text" id="">Upload</span>
-											</div>
-										</div>
-									</div>
-								</div>	
-								<div class="col-md-6">						
-									<div class="form-group">
-										<label for="exampleInputFile">Signature</label>
-										<div class="input-group">
-											<div class="custom-file">
-												<input type="file" name="signature" class="custom-file-input" id="exampleInputFile">
-												<label class="custom-file-label" for="exampleInputFile">Choose file</label>
-											</div>
-											<div class="input-group-append">
-												<span class="input-group-text" id="">Upload</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-									<div class="row">
-										<div class="col-md-3">
-											<button type="button" data-request="ajax-submit" class="btn btn-primary">Submit</button>
+											<button type="button" data-request="ajax-submit" data-target='[role="edit-employee"]' class="btn btn-primary">Submit</button>
 										</div>
 									</div>
 								</form>
