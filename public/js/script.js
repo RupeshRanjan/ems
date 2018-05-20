@@ -110,3 +110,101 @@ $(document).on('click','[data-request="ajax-submit"]',function(){
         }
     }); 
 });
+
+var dynamicDatepicker = function($className, $maxDate=true,$minDate=true){
+    $($className).datepicker({
+        showOn: "button",
+        buttonImage: asset_url+"images/calender.png",
+        buttonImageOnly: true,
+        dateFormat:'d M , yy',
+        changeMonth: true, 
+        changeYear: true,     
+        buttonText:"Choose Date Of Birth",
+        maxDate: $maxDate == true ? new Date() : '',
+        minDate: $minDate == true ? 0 : '',
+        yearRange:"c-100:c+100"
+    },
+    function(start) {
+        $('.hashowCalender input[type="text"]').val(start.format('DD/MM/YYYY'));
+    }); 
+}
+
+function show_validation_error(msg) {
+    if ($.isPlainObject(msg)) {
+        $data = msg;
+    }else {
+        $data = $.parseJSON(msg);
+    }
+    
+    $.each($data, function (index, value) {
+        var name    = index.replace(/\./g, '][');
+        
+        if (index.indexOf('.') !== -1) {
+            name = name + ']';
+            name = name.replace(']', '');
+        }
+        if (name.indexOf('[]') !== -1) {
+            $('form [name="' + name + '"]').last().closest('').addClass('has-error');
+            $('form [name="' + name + '"]').last().closest('.form-group').find('').append('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+        }else if($('form [name="' + name + '[]"]').length > 0){
+            $('form [name="' + name + '[]"]').closest('.form-group').addClass('');
+            $('form [name="' + name + '[]"]').parent().after('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+        }else{
+            if($('form [name="' + name + '"]').attr('type') == 'checkbox' || $('form [name="' + name + '"]').attr('type') == 'radio'){
+                if($('form [name="' + name + '"]').attr('type') == 'checkbox'){
+                    $('form [name="' + name + '"]').closest('.form-group').addClass('');
+                    $('form [name="' + name + '"]').parent().after('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+                }else{
+                    $('form [name="' + name + '"]').closest('.form-group').addClass('');
+                    $('form [name="' + name + '"]').parent().parent().append('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+                }
+            }else if($('form [name="' + name + '"]').get(0)){
+                
+                if($('form [name="' + name + '"]').get(0).tagName == 'SELECT'){
+                    
+                    $('form [name="' + name + '"]').closest('.form-group').addClass('');
+                    $('form [name="' + name + '"]').parent().after('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+                }else if($('form [name="' + name + '"]').attr('type') == 'password' && $('form [name="' + name + '"]').hasClass('hideShowPassword-field')){
+                    $('form [name="' + name + '"]').closest('.form-group').addClass('');
+                    $('form [name="' + name + '"]').parent().after('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+                }else{
+                    $('form [name="' + name + '"]').closest('.form-group').addClass('');
+                    $('form [name="' + name + '"]').after('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+                }
+            }else{
+                $('form [name="' + name + '"]').closest('.form-group').addClass('');
+                $('form [name="' + name + '"]').after('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+            }
+        }
+
+        // $('.error-message').html($('.error-message').text().replace(".,",". "));
+    });
+
+    /*SCROLLING TO THE INPUT BOX*/
+    scroll();
+}
+
+function scroll() {
+    if ($(".error-message").not('.modal .error-message').length > 0) {
+        $('html, body').animate({
+            scrollTop: ($(".error-message").offset().top - 100)
+        }, 200);
+    }
+}
+
+function strip_html_tags(str){
+    if ((str===null) || (str==='')){
+        return false;
+    }else{
+        str = str.toString();
+    }
+    return str.replace(/<[^>]*>/g, '');
+}
+
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
