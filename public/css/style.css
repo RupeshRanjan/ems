@@ -494,7 +494,9 @@ input:checked+.slider:before {
 .copyright p a {
     color: #000;
 }
-
+.textAlign{
+    margin-left: 170px; 
+}
 /* //content */
 
 @media (max-width: 1920px) {
