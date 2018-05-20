@@ -31,24 +31,6 @@ class Response
 
     public function web_error_response(){
         $error_array = json_decode(json_encode($this->errors),true);
-        
-        if(!empty($error_array['phone_code'])){
-            $error_array = self::json_change($error_array,'mobile_number_error','phone_code');
-        }else if(!empty($error_array['mobile_number'])){
-            $error_array = self::json_change($error_array,'mobile_number_error','mobile_number');
-        }else if(!empty($error_array['fax_code'])){
-            $error_array = self::json_change($error_array,'fax_error','fax_code');
-        }else if(!empty($error_array['fax'])){
-            $error_array = self::json_change($error_array,'fax_error','fax');
-        }else if(!empty($error_array['office_phone_code'])){
-            $error_array = self::json_change($error_array,'office_mobile_number_error','office_phone_code');
-        }else if(!empty($error_array['office_mobile_number'])){
-            $error_array = self::json_change($error_array,'office_mobile_number_error','office_mobile_number');
-        }else if(!empty($error_array['g-recaptcha-response'])){
-            $error_array = self::json_change($error_array,'g-recaptcha-response_error','g-recaptcha-response');
-        }else if(!empty($error_array['common_error'])){
-            $error_array = ['common_error' => [0 => $error_array['common_error']]];
-        }
         return (object)[array_keys($error_array)[0] => [current($error_array)[0]]];
 	}
 

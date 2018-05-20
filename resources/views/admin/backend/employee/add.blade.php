@@ -28,19 +28,19 @@
 					</div>
 					<!-- /.card-header -->
 					<!-- form start -->
-					<form role="form">
+					<form role="add-employee" action="{{url('admin/employee')}}" method ="POST">
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="exampleInputEmail1">First Name</label>
-										<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+										<label for="first_name">First Name</label>
+										<input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First Name">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Last Name</label>
-										<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+										<label for="last_name">Last Name</label>
+										<input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last Name">
 									</div>
 								</div>
 							</div>
@@ -48,39 +48,151 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Employee Id</label>
-										<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+										<input type="text" name="employee_id" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Date Of Birth</label>
                                         <div class="hashowCalender showCalendarWithInput">
-                                            <input type="text" class="form-control datepicker" readonly="readonly" name="date_of_birth" value="">
+                                            <input type="text" name="date_of_birth" class="form-control datepicker" readonly="readonly" name="date_of_birth" value="">
                                         </div>
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="exampleInputFile">File input</label>
-								<div class="input-group">
-									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="exampleInputFile">
-										<label class="custom-file-label" for="exampleInputFile">Choose file</label>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Gender</label>
+									<div class="form-control radioGenderFormControl">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+								                    <div class="form-check">
+								                      	<input class="form-check-input" name="gender" value="male" checked="checked" type="radio" >
+								                      	<label class="form-check-label">Male</label>
+								                    </div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+								                    <div class="form-check">
+								                      	<input class="form-check-input" name="gender" type="radio" value="female">
+								                      	<label class="form-check-label">Female</label>
+								                    </div>
+												</div>
+											</div>
+										</div>
 									</div>
-									<div class="input-group-append">
-										<span class="input-group-text" id="">Upload</span>
+								</div>
+								<div class="col-md-6">
+									<div class="row">
+										<div class="col-md-3">
+											<div class="form-group">
+							                    <label>Phone Code</label>
+							                    <select name="phone_code" class="form-control">
+							                    	<option value="+91">+91</option>
+							                    </select>
+											</div>
+										</div>
+										<div class="col-md-9">
+											<div class="form-group">
+							                    <label>Mobile Number</label>
+							                    <input type="text" class="form-control" id="exampleInputEmail1" name="mobile_number" placeholder="Enter Mobile Number">
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="form-check">
-								<input type="checkbox" class="form-check-input" id="exampleCheck1">
-								<label class="form-check-label" for="exampleCheck1">Check me out</label>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Current Address</label>
+										<textarea name="current_address"  class="form-control" placeholder="Current Address"></textarea>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Permanent Address</label>
+										<textarea name="permanent_address"  class="form-control" placeholder="Permanent Address"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Marital Status</label>
+									<div class="form-control radioGenderFormControl">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+								                    <div class="form-check">
+								                      	<input type="radio" class="form-check-input" name="marital_status" value="married" >
+								                      	<label class="form-check-label">Married</label>
+								                    </div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+								                    <div class="form-check">
+								                      	<input type="radio" class="form-check-input" name="marital_status"  value="single">
+								                      	<label class="form-check-label">Single</label>
+								                    </div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+					                    <label>Email</label>
+                                        <input type="email" class="form-control" name="email" value="">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+					                    <label>Date Of Joining</label>
+                                        <div class="hashowCalender showCalendarWithInput">
+                                            <input type="text" class="form-control datepicker" readonly="readonly" name="date_of_joining" value="">
+                                        </div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">						
+									<div class="form-group">
+										<label for="exampleInputFile">Profile Image</label>
+										<div class="input-group">
+											<div class="custom-file">
+												<input type="file" class="custom-file-input" id="exampleInputFile">
+												<label class="custom-file-label" for="exampleInputFile">Choose file</label>
+											</div>
+											<div class="input-group-append">
+												<span class="input-group-text" id="">Upload</span>
+											</div>
+										</div>
+									</div>
+								</div>	
+								<div class="col-md-6">						
+									<div class="form-group">
+										<label for="exampleInputFile">Signature</label>
+										<div class="input-group">
+											<div class="custom-file">
+												<input type="file" class="custom-file-input" id="exampleInputFile">
+												<label class="custom-file-label" for="exampleInputFile">Choose file</label>
+											</div>
+											<div class="input-group-append">
+												<span class="input-group-text" id="">Upload</span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 						<!-- /.card-body -->
 
 						<div class="card-footer">
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="button" data-request="ajax-submit" data-target='[role="add-employee"]' class="btn btn-primary">Submit</button>
 						</div>
 					</form>
 				</div>

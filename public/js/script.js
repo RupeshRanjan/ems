@@ -1,6 +1,9 @@
 $(document).on('click','[data-request="ajax-submit"]',function(){
     /*REMOVING PREVIOUS ALERT AND ERROR CLASS*/
-    $('#popup').show();  $('.alert').remove(); $(".has-error").removeClass('has-error');$('.error-message').remove();
+    $('#popup').show();  
+    $('.alert').remove(); 
+    $(".has-error").removeClass('has-error');
+    $('.help-block').remove();
     var $this       = $(this);
     var $target     = $this.data('target');
     var $url        = $($target).attr('action');
@@ -8,7 +11,6 @@ $(document).on('click','[data-request="ajax-submit"]',function(){
     var $modal      = $this.data('modal');
     var $data       = new FormData($($target)[0]);
     if(!$method){ $method = 'get'; }
-    
     $.ajax({
         url: $url, 
         data: $data,
@@ -145,35 +147,35 @@ function show_validation_error(msg) {
         }
         if (name.indexOf('[]') !== -1) {
             $('form [name="' + name + '"]').last().closest('').addClass('has-error');
-            $('form [name="' + name + '"]').last().closest('.form-group').find('').append('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+            $('form [name="' + name + '"]').last().closest('.form-group').find('').append('<span class="help-block">'+ value +'</span>');
         }else if($('form [name="' + name + '[]"]').length > 0){
-            $('form [name="' + name + '[]"]').closest('.form-group').addClass('');
-            $('form [name="' + name + '[]"]').parent().after('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+            $('form [name="' + name + '[]"]').closest('.form-group').addClass('has-error');
+            $('form [name="' + name + '[]"]').parent().after('<span class="help-block">'+ value +'</span>');
         }else{
             if($('form [name="' + name + '"]').attr('type') == 'checkbox' || $('form [name="' + name + '"]').attr('type') == 'radio'){
                 if($('form [name="' + name + '"]').attr('type') == 'checkbox'){
-                    $('form [name="' + name + '"]').closest('.form-group').addClass('');
-                    $('form [name="' + name + '"]').parent().after('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+                    $('form [name="' + name + '"]').closest('.form-group').addClass('has-error');
+                    $('form [name="' + name + '"]').parent().after('<span class="help-block">'+ value +'</span>');
                 }else{
-                    $('form [name="' + name + '"]').closest('.form-group').addClass('');
-                    $('form [name="' + name + '"]').parent().parent().append('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+                    $('form [name="' + name + '"]').closest('.form-group').addClass('has-error');
+                    $('form [name="' + name + '"]').parent().parent().append('<span class="help-block">'+ value +'</span>');
                 }
             }else if($('form [name="' + name + '"]').get(0)){
                 
                 if($('form [name="' + name + '"]').get(0).tagName == 'SELECT'){
                     
-                    $('form [name="' + name + '"]').closest('.form-group').addClass('');
-                    $('form [name="' + name + '"]').parent().after('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+                    $('form [name="' + name + '"]').closest('.form-group').addClass('has-error');
+                    $('form [name="' + name + '"]').parent().after('<span class="help-block">'+ value +'</span>');
                 }else if($('form [name="' + name + '"]').attr('type') == 'password' && $('form [name="' + name + '"]').hasClass('hideShowPassword-field')){
-                    $('form [name="' + name + '"]').closest('.form-group').addClass('');
-                    $('form [name="' + name + '"]').parent().after('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+                    $('form [name="' + name + '"]').closest('.form-group').addClass('has-error');
+                    $('form [name="' + name + '"]').parent().after('<span class="help-block">'+ value +'</span>');
                 }else{
-                    $('form [name="' + name + '"]').closest('.form-group').addClass('');
-                    $('form [name="' + name + '"]').after('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+                    $('form [name="' + name + '"]').closest('.form-group').addClass('has-error');
+                    $('form [name="' + name + '"]').after('<span class="help-block">'+ value +'</span>');
                 }
             }else{
-                $('form [name="' + name + '"]').closest('.form-group').addClass('');
-                $('form [name="' + name + '"]').after('<div class="error-message"><span class="error-text">' + value + '</span></div>');
+                $('form [name="' + name + '"]').closest('.form-group').addClass('has-error');
+                $('form [name="' + name + '"]').after('<span class="help-block">'+ value +'</span>');
             }
         }
 
@@ -185,9 +187,9 @@ function show_validation_error(msg) {
 }
 
 function scroll() {
-    if ($(".error-message").not('.modal .error-message').length > 0) {
+    if ($(".help-block").not('.modal .help-block').length > 0) {
         $('html, body').animate({
-            scrollTop: ($(".error-message").offset().top - 100)
+            scrollTop: ($(".help-block").offset().top - 100)
         }, 200);
     }
 }
