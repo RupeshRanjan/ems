@@ -36,3 +36,55 @@
 .form-group.has-error .help-block {
     color: #dd4b39;
 }
+
+
+.white_box_wrapper .swal2-modal.success-message-custom-class.swal2-show {
+   width: 515px !important;
+   min-height: 217px !important;
+   overflow: hidden;
+   padding: 0px !important;
+   border-radius: 0px;
+}
+
+.white_box_wrapper .swal2-icon {
+   width: 80px;
+   height: 80px;
+   border: 4px solid transparent;
+   border-radius: 50%;
+   margin: 19px auto 12px;
+   padding: 0;
+   position: relative;
+   box-sizing: content-box;
+   cursor: default;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+
+.white_box_wrapper .swal2-modal .swal2-styled {
+   border: 0;
+   border-radius: 1px;
+   box-shadow: none;
+   color: #fff;
+   cursor: pointer;
+   font-size: 17px;
+   font-weight: 600;
+   margin: 4px 5px 0;
+   padding: 7px 20px;
+}
+
+.white_box_wrapper .swal2-modal .swal2-buttonswrapper{
+   margin-top: 12px;
+   direction: rtl;
+}
+.ui-widget.ui-widget-content {
+    border: 1px solid #c5c5c5;
+    z-index: 999 !important;
+}
+.white_box_wrapper .swal2-modal .swal2-content{
+    text-align:center;
+}
+.swal2-modal .swal2-close:hover {
+    color: #eaeaea;
+}

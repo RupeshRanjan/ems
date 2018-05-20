@@ -72,6 +72,10 @@ class EmployeeController extends Controller
         if($validator->fails()){
             $this->message = $validator->errors();
         }else{
+            $this->status   = true;
+            $this->redirect = url('admin/employee');
+            $this->modal    = true;
+            $this->message  = "Employee has been added successfully.";
         }
         return $this->populateresponse();
     }

@@ -20,6 +20,7 @@
 	<!-- Morris chart -->
 	<link rel="stylesheet" href="{{asset('plugins/morris/morris.css')}}">
 	<!-- jvectormap -->
+    <link href="{{ asset('/bower_components/sweetalert2/dist/sweetalert2.css') }}" rel="stylesheet">
 	<link rel="stylesheet" href="{{asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">
 	<!-- Date Picker -->
 	<link rel="stylesheet" href="{{asset('plugins/datepicker/datepicker3.css')}}">
@@ -84,6 +85,7 @@
 	<!-- FastClick -->
 	<script src="{{asset('plugins/fastclick/fastclick.js')}}"></script>
 	<!-- AdminLTE App -->
+    <script src="{{ asset('/bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>	
 	<script src="{{asset('dist/js/adminlte.js')}}"></script>
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<script src="{{asset('dist/js/pages/dashboard.js')}}"></script>

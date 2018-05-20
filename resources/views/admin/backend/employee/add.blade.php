@@ -47,14 +47,14 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Employee Id</label>
-										<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+										<input type="text" name="employee_id" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Date Of Birth</label>
                                         <div class="hashowCalender showCalendarWithInput">
-                                            <input type="text" class="form-control datepicker" readonly="readonly" name="date_of_birth" value="">
+                                            <input type="text" name="date_of_birth" class="form-control datepicker" readonly="readonly" name="date_of_birth" value="">
                                         </div>
 									</div>
 								</div>
@@ -67,7 +67,7 @@
 											<div class="col-md-6">
 												<div class="form-group">
 								                    <div class="form-check">
-								                      	<input class="form-check-input" name="gender" value="male" type="radio" >
+								                      	<input class="form-check-input" name="gender" value="male" checked="checked" type="radio" >
 								                      	<label class="form-check-label">Male</label>
 								                    </div>
 												</div>
@@ -88,13 +88,15 @@
 										<div class="col-md-3">
 											<div class="form-group">
 							                    <label>Phone Code</label>
-							                    <select name="phone_code" class="form-control"></select>
+							                    <select name="phone_code" class="form-control">
+							                    	<option value="+91">+91</option>
+							                    </select>
 											</div>
 										</div>
 										<div class="col-md-9">
 											<div class="form-group">
 							                    <label>Mobile Number</label>
-							                    <input type="text" class="form-control" id="exampleInputEmail1" name="mobile_number" placeholder="Enter email">
+							                    <input type="text" class="form-control" id="exampleInputEmail1" name="mobile_number" placeholder="Enter Mobile Number">
 											</div>
 										</div>
 									</div>
@@ -103,8 +105,8 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Home Address</label>
-										<textarea name="home_address"  class="form-control" placeholder="Home Address"></textarea>
+										<label for="exampleInputEmail1">Current Address</label>
+										<textarea name="current_address"  class="form-control" placeholder="Current Address"></textarea>
 									</div>
 								</div>
 								<div class="col-md-6">
