@@ -61,4 +61,46 @@ class Users extends Model
             true
         );
     }
+
+    public static function list($fetch='array',$user_id,$where='',$order='id-desc'){
+                
+        $table_user = self::select(['*'])->where('status','!=','trashed');
+
+        if($where){
+            $table_user->whereRaw($where);
+        }
+        
+
+        if(!empty($user_id)){
+            $table_user->where(['id' => $user_id]);
+        }
+
+        $userlist['userCount'] = !empty($table_user->count())?$table_user->count():0;
+        
+        if(!empty($order)){
+            $order = explode('-', $order);
+            $table_user->orderBy($order[0],$order[1]);
+        }
+
+        if($fetch === 'array'){
+            $userlist['userlist'] = $table_user->get();
+            return json_decode(json_encode($userlist ), true );
+        }else if($fetch === 'obj'){
+            return $table_user->limit($limit)->get();                
+        }else if($fetch === 'single'){
+            return $table_user->get()->first();
+        }else{
+            return $table_user->limit($limit)->get();
+        }
+    }
+
+    public static function change($system_user_id,$data){
+        if(!empty($data)){
+           
+            $isUpdated = self::where('id',$system_user_id)->update($data);
+            return $isUpdated;
+        }else{
+            return (bool)false;
+        }
+    }
 }

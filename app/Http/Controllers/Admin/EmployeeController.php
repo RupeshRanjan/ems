@@ -47,7 +47,38 @@ class EmployeeController extends Controller
      */
     public function index(Request $request ,Builder $builder)
     {
+        $userList = \Models\Users::list('array','','','id_user-desc');
+        $userList = $userList['userlist'];
         $data['view'] = 'admin.backend.employee.list';
+
+        if ($request->ajax()) {
+            return DataTables::of($userList)
+
+            ->editColumn('action',function($userList){
+                $html    = '<div class="edit_details_box">';
+                $html   .= '<a href="'.url('admin/client/'.___encrypt($userList['id_user']).'').'"
+                            ">View</a>';
+               
+                if($userList['status'] == 'active'){
+                    $html   .= '<a href="javascript:void(0);" 
+                        data-url="'.url(sprintf('admin/client/status/?id=%s&status=inactive',$userList['id_user'])).'" 
+                        data-request="ajax-confirm"
+                        data-ask_image="'.url('/images/inactive.png').'"
+                        data-ask="Would you like to change '.$userList['name'].' status from active to inactive?" >Active</a>';
+                }elseif($userList['status'] == 'inactive'){
+                    $html   .= '<a href="javascript:void(0);" 
+                        data-url="'.url(sprintf('admin/client/status/?id=%s&status=active',$userList['id_user'])).'" 
+                        data-request="ajax-confirm"
+                        data-ask_image="'.url('/images/active.png').'"
+                        data-ask="Would you like to change '.$userList['name'].' status from inactive to active?" >Inactive</a>';
+                }
+                    $html   .= '</div>';
+                                
+                return $html;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
         $data['html'] = $builder
             ->addColumn(['data' => 'id', 'name' => 'id','title' => 'Cand-ID','orderable' => false])
             ->addColumn(['data' => 'name',     'name' => 'name',    'title' => 'Name','orderable' => false])
