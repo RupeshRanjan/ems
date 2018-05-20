@@ -16,6 +16,7 @@ class Employee
 
 	private function validation($key){
 		$validation = [
+			'email'				=> ['required','email'],
 			'first_name' 		=> ['required','string'],
 			'last_name' 		=> ['required','string'],
 			'employee_id' 		=> ['required','string'],
@@ -32,16 +33,17 @@ class Employee
 
 	public function createEmployee(){
         $validator = \Validator::make($this->data->all(), [
-            'first_name' 	=> $this->validation('first_name'),
-            'last_name' 	=> $this->validation('last_name'),
-            'employee_id' 	=> $this->validation('employee_id'),
-            'date_of_birth' => $this->validation('date_of_birth'),
+            'first_name' 		=> $this->validation('first_name'),
+            'last_name' 		=> $this->validation('last_name'),
+            'employee_id' 		=> $this->validation('employee_id'),
+            'date_of_birth' 	=> $this->validation('date_of_birth'),
 			'gender'			=> $this->validation('gender'),
 			'phone_code'		=> $this->validation('phone_code'),
 			'mobile_number'		=> $this->validation('mobile_number'),
 			'current_address'	=> $this->validation('address'),
 			'permanent_address'	=> $this->validation('address'),
 			'marital_status'	=> $this->validation('marital_status'),
+			'email'				=> $this->validation('email'),
 			'date_of_joining'	=> $this->validation('date_of_joining'),            
         ],[
         	'email.required' 	=> trans('general.M0032'),
