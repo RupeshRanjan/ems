@@ -10,11 +10,11 @@
     class AdminAuth{
         
         public function handle($request, Closure $next){
-            if(Auth::check()){
-                return redirect(sprintf("%s/%s",ADMIN_FOLDER,'dashboard'));
-            }else{
-                return redirect(sprintf("%s/%s",ADMIN_FOLDER,'login'));
-            }
+            // if(Auth::check()){
+            //     return redirect('admin/dashboard');
+            // }else{
+            //     return redirect('admin/login');
+            // }
 
             return $next($request);
         }

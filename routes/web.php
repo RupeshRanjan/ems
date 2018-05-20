@@ -21,4 +21,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'],function(){
 	Route::group(['middleware' => 'AdminAuth'],function(){
 		Route::get('dashboard','AdminController@dashboard');
 	});
+	Route::get('/logout', function () { 
+		\Auth::logout();
+		return redirect('admin/login'); 
+	});
 });
+
+
+Route::get('/home', 'HomeController@index')->name('home');

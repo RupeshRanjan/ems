@@ -7,9 +7,9 @@ use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
-    public function dashboard()
-    {
+
+    public function dashboard(){
     	$data['view'] = 'dashboard';
-    	return view('index')->with($data);
+    	return view('admin.backend.index')->with($data);
     }
 }
