@@ -9,7 +9,7 @@ class AdminController extends Controller
 {
 
     public function dashboard(){
-    	$data['view'] = 'dashboard';
+    	$data['view'] = 'admin.backend.dashboard';
     	return view('admin.backend.index')->with($data);
     }
 }
