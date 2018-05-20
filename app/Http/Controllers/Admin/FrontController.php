@@ -9,6 +9,7 @@ class FrontController extends Controller
 {
     public function login(Request $request)
     {
-    	dd("comming soon");
+    	$data['view'] = 'admin.front.login';
+    	return view('admin.front.index')->with($data);
     }
 }
