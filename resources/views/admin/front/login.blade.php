@@ -7,7 +7,7 @@
             <form role="login" action="{{url('admin/authenticate')}}" method="post">
                 <div class="field_w3ls">
                     <div class="field-group">
-                        <input name="username" id="text1" type="text" value="" placeholder="username" required>
+                        <input name="email" id="text1" type="text" value="" placeholder="username" required>
                     </div>
                     <div class="field-group">
                         <input id="password-field" type="password" class="form-control" name="password" value="" placeholder="Password">

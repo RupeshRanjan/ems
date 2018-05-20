@@ -23,4 +23,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'],function(){
 		Route::get('dashboard','AdminController@dashboard');
 
 	});
+	Route::get('/logout', function () { 
+		\Auth::logout();
+		return redirect('admin/login'); 
+	});
 });
+
+
+Route::get('/home', 'HomeController@index')->name('home');

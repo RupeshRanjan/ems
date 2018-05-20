@@ -17,8 +17,10 @@ class FrontController extends Controller
     public function authenticate(Request $request)
     {
     	$credentials = ['email' => $request->email,'password' => $request->password];
-    	if(Auth::attempt($credentials)){
-    		dd(Auth::user());
+        if(Auth::attempt($credentials)){
+            return redirect('admin/dashboard');
+    	}else{
+    		
     	}
     }
 }
