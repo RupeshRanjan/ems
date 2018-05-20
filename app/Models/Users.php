@@ -61,4 +61,16 @@ class Users extends Model
             true
         );
     }
+
+    public static function change($userID,$data){
+        $isUpdated = false;
+        $table_users = DB::table('users');
+        if(!empty($data)){
+            $table_users->where('id_user','=',$userID);
+            $isUpdated = $table_users->update($data); 
+        }
+                
+        return (bool)$isUpdated;
+    }
+    
 }

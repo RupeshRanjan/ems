@@ -23,7 +23,7 @@ class Employee
 			'date_of_birth' 	=> ['required','string'],
 			'gender' 			=> ['required','string'],
 			'phone_code' 		=> ['required','string'],
-			'mobile_number' 	=> ['required','string'],
+			'mobile_number' 	=> ['required','numberic'],
 			'address' 			=> ['required','string','max:500'],
 			'marital_status' 	=> ['required','string'],
 			'date_of_joining' 	=> ['required','string'],
@@ -46,11 +46,16 @@ class Employee
 			'email'				=> $this->validation('email'),
 			'date_of_joining'	=> $this->validation('date_of_joining'),            
         ],[
-        	'email.required' 	=> trans('general.M0032'),
-        	'email.string' 	=> trans('general.M0033'),
-			
         ]);
         
         return $validator;		
 	}
+
+	public function changeStatus(){
+		$validator = Validator::make($this->data->all(),[
+			'id'    			=> 'required',
+			'status'    		=> 'required',
+		]);
+		return $validator;
+	}	
 }

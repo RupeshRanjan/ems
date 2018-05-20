@@ -46,15 +46,15 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Employee Id</label>
-										<input type="text" name="employee_id" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+					                    <label>Email</label>
+                                        <input type="email" class="form-control" name="email" value="" placeholder="Enter Email">
 									</div>
-								</div>
+								</div>							
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Date Of Birth</label>
                                         <div class="hashowCalender showCalendarWithInput">
-                                            <input type="text" name="date_of_birth" class="form-control datepicker" readonly="readonly" name="date_of_birth" value="">
+                                            <input type="text" name="date_of_birth" class="form-control datepicker" readonly="readonly" name="date_of_birth" value="" placeholder="Enter Date Of Birth">
                                         </div>
 									</div>
 								</div>
@@ -142,17 +142,17 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-					                    <label>Email</label>
-                                        <input type="email" class="form-control" name="email" value="">
+										<label for="exampleInputEmail1">Employee Id</label>
+										<input type="text" name="employee_id" class="form-control" id="exampleInputEmail1" placeholder="Enter Employee Id">
 									</div>
-								</div>
+								</div>								
 							</div>
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 					                    <label>Date Of Joining</label>
                                         <div class="hashowCalender showCalendarWithInput">
-                                            <input type="text" class="form-control datepicker" readonly="readonly" name="date_of_joining" value="">
+                                            <input type="text" class="form-control datepicker" readonly="readonly" name="date_of_joining" value="" placeholder="Enter Date Of Joining">
                                         </div>
 									</div>
 								</div>
@@ -163,7 +163,7 @@
 										<label for="exampleInputFile">Profile Image</label>
 										<div class="input-group">
 											<div class="custom-file">
-												<input type="file" class="custom-file-input" id="exampleInputFile">
+												<input type="file" name="profile_picture" class="custom-file-input" id="exampleInputFile">
 												<label class="custom-file-label" for="exampleInputFile">Choose file</label>
 											</div>
 											<div class="input-group-append">
@@ -177,7 +177,7 @@
 										<label for="exampleInputFile">Signature</label>
 										<div class="input-group">
 											<div class="custom-file">
-												<input type="file" class="custom-file-input" id="exampleInputFile">
+												<input type="file" name="signature" class="custom-file-input" id="exampleInputFile">
 												<label class="custom-file-label" for="exampleInputFile">Choose file</label>
 											</div>
 											<div class="input-group-append">

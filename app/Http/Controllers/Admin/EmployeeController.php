@@ -45,8 +45,7 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request ,Builder $builder)
-    {
+    public function index(Request $request ,Builder $builder){
         $data['view'] = 'admin.backend.employee.list';
         $data['html'] = $builder
             ->addColumn(['data' => 'id', 'name' => 'id','title' => 'Cand-ID','orderable' => false])
@@ -89,6 +88,19 @@ class EmployeeController extends Controller
         if($validator->fails()){
             $this->message = $validator->errors();
         }else{
+
+            if(!empty($request->profile_picture)){
+                $folder         = 'uploads/profile/';
+                $uploaded_file  = upload_file($request,'profile_picture',$folder,true,['height'=>320,'width'=>320]);                
+                $profile_picture =  $uploaded_file['filename'];      
+            }
+
+            if(!empty($request->signature)){
+                $folder         = 'uploads/signature/';
+                $uploaded_file  = upload_file($request,'signature',$folder,true,['height'=>320,'width'=>320]);                
+                $signature       = $uploaded_file['filename'];       
+            }
+
             $addEmployee = [
                 'name'              => sprintf('%s %s',$request->first_name,$request->last_name),
                 'first_name'        => $request->first_name,
@@ -105,6 +117,8 @@ class EmployeeController extends Controller
                 'marital_status'    => $request->marital_status,
                 'date_of_joining'   => date('Y-m-d',strtotime($request->date_of_joining)),
                 'remember_token'    => bcrypt(__random_string()),
+                'profile_picture'   => $profile_picture,
+                'signature'         => $signature,
                 'status'            => 'pending',
                 'created_at'        => date('Y-m-d H:i:s'),
                 'updated_at'        => date('Y-m-d H:i:s'),
@@ -164,4 +178,28 @@ class EmployeeController extends Controller
     {
         //
     }
+
+    public function changeStatus(Request $request){
+        $validation = new Validations($request);
+        $validator = $validation->changeStatus();
+
+        if($validator->fails()){
+            $this->message = $validator->errors();
+        }else{
+            $userData                = ['status' => $request->status, 'updated' => date('Y-m-d H:i:s')];
+            $isUpdated               = Users::change($request->id,$userData);
+
+            if($isUpdated){
+                if($request->status == 'trashed'){
+                    $this->message = trans('general.success_delete',['attribute' => trans('static.user')]);
+                }else{
+                    $this->message = trans('general.success_update',['attribute' => trans('static.user')]);
+                }
+                $this->status = true;
+                $this->redirect = true;
+                $this->jsondata = [];
+            }
+        }
+       return $this->populateresponse();
+    }    
 }
