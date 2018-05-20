@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>AdminLTE 3 | Dashboard</title>
 	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="_token" content="{{ csrf_token() }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="{{asset('plugins/font-awesome/css/font-awesome.min.css')}}">
@@ -14,7 +15,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap4.min.css')}}">  
 	<!-- Theme style -->
-	<link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
 	<!-- iCheck -->
 	<link rel="stylesheet" href="{{asset('plugins/iCheck/flat/blue.css')}}">
 	<!-- Morris chart -->
@@ -27,6 +27,7 @@
 	<link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker-bs3.css')}}">
 	<!-- bootstrap wysihtml5 - text editor -->
 	<link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+	<link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
 	<link rel="stylesheet" href="{{asset('css/admin.css')}}">
 
 	<!-- Google Font: Source Sans Pro -->
@@ -89,7 +90,15 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="{{asset('dist/js/demo.js')}}"></script>
 	<script src="{{asset('js/script.js')}}"></script>
-
+    <script type="text/javascript">
+        $(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },isLocal: false
+            });
+        });            
+    </script>
 	@yield('requirejs')
 	@yield('inlinejs')
 	@stack('inlinescript')

@@ -27,19 +27,19 @@
 					</div>
 					<!-- /.card-header -->
 					<!-- form start -->
-					<form role="form">
+					<form role="add-employee" action="{{url('admin/employee')}}" method ="POST">
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="exampleInputEmail1">First Name</label>
-										<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+										<label for="first_name">First Name</label>
+										<input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First Name">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Last Name</label>
-										<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+										<label for="last_name">Last Name</label>
+										<input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last Name">
 									</div>
 								</div>
 							</div>
@@ -59,6 +59,94 @@
 									</div>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Gender</label>
+									<div class="form-control radioGenderFormControl">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+								                    <div class="form-check">
+								                      	<input class="form-check-input" name="gender" value="male" type="radio" >
+								                      	<label class="form-check-label">Male</label>
+								                    </div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+								                    <div class="form-check">
+								                      	<input class="form-check-input" name="gender" type="radio" value="female">
+								                      	<label class="form-check-label">Female</label>
+								                    </div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="row">
+										<div class="col-md-3">
+											<div class="form-group">
+							                    <label>Phone Code</label>
+							                    <select name="phone_code" class="form-control"></select>
+											</div>
+										</div>
+										<div class="col-md-9">
+											<div class="form-group">
+							                    <label>Mobile Number</label>
+							                    <input type="text" class="form-control" id="exampleInputEmail1" name="mobile_number" placeholder="Enter email">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Home Address</label>
+										<textarea name="home_address"  class="form-control" placeholder="Home Address"></textarea>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Permanent Address</label>
+										<textarea name="permanent_address"  class="form-control" placeholder="Permanent Address"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Marital Status</label>
+									<div class="form-control radioGenderFormControl">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+								                    <div class="form-check">
+								                      	<input type="radio" class="form-check-input" name="marital_status" value="married" >
+								                      	<label class="form-check-label">Married</label>
+								                    </div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+								                    <div class="form-check">
+								                      	<input type="radio" class="form-check-input" name="marital_status"  value="single">
+								                      	<label class="form-check-label">Single</label>
+								                    </div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+					                    <label>Date Of Joining</label>
+                                        <div class="hashowCalender showCalendarWithInput">
+                                            <input type="text" class="form-control datepicker" readonly="readonly" name="date_of_joining" value="">
+                                        </div>
+									</div>
+								</div>
+							</div>														
 							<div class="form-group">
 								<label for="exampleInputFile">File input</label>
 								<div class="input-group">
@@ -79,7 +167,7 @@
 						<!-- /.card-body -->
 
 						<div class="card-footer">
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="button" data-request="ajax-submit" data-target='[role="add-employee"]' class="btn btn-primary">Submit</button>
 						</div>
 					</form>
 				</div>
