@@ -17,7 +17,7 @@ Route::get('/',function(){
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'],function(){
 	Route::get('/','FrontController@login');
 	Route::get('login','FrontController@login');
-	// Route::group(['middleware' => 'AdminAuth'],function(){
+	Route::group(['middleware' => 'AdminAuth'],function(){
 		Route::get('dashboard','AdminController@dashboard');
-	// });
+	});
 });
