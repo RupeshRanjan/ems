@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class FrontController extends Controller
 {
@@ -15,6 +16,9 @@ class FrontController extends Controller
 
     public function authenticate(Request $request)
     {
-    	dd($request->all());
+    	$credentials = ['email' => $request->email,'password' => $request->password];
+    	if(Auth::attempt($credentials)){
+    		dd(Auth::user());
+    	}
     }
 }
