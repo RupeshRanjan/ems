@@ -53,7 +53,7 @@ class FrontController extends Controller
         $validator = $validation->login();
 
         if($validator->fails()){
-            $this->validation->error();
+            $this->validator->errors();
         }else{
 
         	$credentials = ['email' => $request->email,'password' => $request->password];
